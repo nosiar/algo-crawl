@@ -8,11 +8,14 @@
 import scrapy
 
 
-class AlgospotItem(scrapy.Item):
-    uid = scrapy.Field()
+class ProblemItem(scrapy.Item):
+    keyword = scrapy.Field()
     name = scrapy.Field()
     submitted = scrapy.Field()
     accepted = scrapy.Field()
     source = scrapy.Field()
     category = scrapy.Field()
 
+class UserItem(scrapy.Item):
+    uid = scrapy.Field()
+    name = scrapy.Field()

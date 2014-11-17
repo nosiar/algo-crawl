@@ -3,10 +3,11 @@ from scrapy.selector import Selector
 from scrapy.http import Request
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors import LinkExtractor
-from algospot.items import AlgospotItem
+from algospot.items import ProblemItem
 
-class AlgospotSpider(Spider):
-    name = 'algospot'
+class ProblemSpider(Spider):
+
+    name = 'problem'
     allowed_domains = ['algospot.com']
     start_urls = ['https://algospot.com/judge/problem/list/']
 
@@ -20,17 +21,17 @@ class AlgospotSpider(Spider):
 
     def parse_list(self, response):
         sel = Selector(response)
-        uids = sel.xpath('//table[@class="problem_list"]'
-                          '/tbody/tr/td[2]/a/text()')
+        keywords = sel.xpath('//table[@class="problem_list"]'
+                             '/tbody/tr/td[2]/a/text()')
 
-        for uid in uids:
-            url = 'https://algospot.com/judge/problem/read/' + uid.extract()
+        for keyword in keywords:
+            url = 'https://algospot.com/judge/problem/read/' + keyword.extract()
             yield Request(url, callback=self.parse_problem)
 
     def parse_problem(self, response):
         sel = Selector(response)
-        item = AlgospotItem()
-        item['uid'] = sel.xpath('//li[@class="problem-id"]/a/text()').extract()
+        item = ProblemItem()
+        item['keyword'] = sel.xpath('//li[@class="problem-id"]/a/text()').extract()
         item['name'] = sel.xpath('//header/h2/text()').extract()
         item['submitted'] = sel.xpath('//li[@class="submissions"]/a/b/text()').extract()
         item['accepted'] = sel.xpath('//li[@class="accepted"]/a/b/text()[1]').extract()
