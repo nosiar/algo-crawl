@@ -3,7 +3,7 @@ from scrapy.selector import Selector
 from scrapy.http import Request
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors import LinkExtractor
-from algospot.items import ProblemItem
+from algospot.items import Problem
 
 class ProblemSpider(Spider):
 
@@ -30,7 +30,7 @@ class ProblemSpider(Spider):
 
     def parse_problem(self, response):
         sel = Selector(response)
-        item = ProblemItem()
+        item = Problem()
         item['keyword'] = sel.xpath('//li[@class="problem-id"]/a/text()').extract()
         item['name'] = sel.xpath('//header/h2/text()').extract()
         item['submitted'] = sel.xpath('//li[@class="submissions"]/a/b/text()').extract()

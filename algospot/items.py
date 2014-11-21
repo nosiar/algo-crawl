@@ -8,7 +8,7 @@
 import scrapy
 
 
-class ProblemItem(scrapy.Item):
+class Problem(scrapy.Item):
     keyword = scrapy.Field()
     name = scrapy.Field()
     submitted = scrapy.Field()
@@ -16,6 +16,7 @@ class ProblemItem(scrapy.Item):
     source = scrapy.Field()
     category = scrapy.Field()
 
-class UserItem(scrapy.Item):
+class User(scrapy.Item):
     uid = scrapy.Field()
     name = scrapy.Field()
+    problems = scrapy.Field()
