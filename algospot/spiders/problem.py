@@ -1,11 +1,10 @@
-from scrapy.spider import Spider
+import scrapy
 from scrapy.selector import Selector
 from scrapy.http import Request
-from scrapy.contrib.spiders import CrawlSpider, Rule
-from scrapy.contrib.linkextractors import LinkExtractor
 from algospot.items import Problem
 
-class ProblemSpider(Spider):
+
+class ProblemSpider(scrapy.Spider):
 
     name = 'problem'
     allowed_domains = ['algospot.com']
@@ -14,7 +13,7 @@ class ProblemSpider(Spider):
     def parse(self, response):
         sel = Selector(response)
         last_page = sel.xpath('//span[@class="step-links"]/a/text()')[-1].extract()
-        
+
         for i in range(1, int(last_page) + 1):
             url = 'https://algospot.com/judge/problem/list/' + str(i)
             yield Request(url, callback=self.parse_list)
@@ -38,4 +37,3 @@ class ProblemSpider(Spider):
         item['source'] = sel.xpath('//li[@class="source"]/a/text()').extract()
         item['category'] = sel.xpath('//span[@id="problem_category"]/a/text()').extract()
         yield item
-
