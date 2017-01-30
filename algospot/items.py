@@ -16,6 +16,7 @@ class Problem(scrapy.Item):
     source = scrapy.Field()
     category = scrapy.Field()
 
+
 class User(scrapy.Item):
     uid = scrapy.Field()
     name = scrapy.Field()

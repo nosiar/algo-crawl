@@ -14,4 +14,4 @@ SPIDER_MODULES = ['algospot.spiders']
 NEWSPIDER_MODULE = 'algospot.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'algospot (+http://www.yourdomain.com)'
+# USER_AGENT = 'algospot (+http://www.yourdomain.com)'
